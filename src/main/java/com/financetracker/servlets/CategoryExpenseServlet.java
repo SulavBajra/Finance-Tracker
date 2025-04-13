@@ -42,7 +42,6 @@ public class CategoryExpenseServlet extends HttpServlet {
                     data.add(entry);
                 }
     
-                // Convert list to JSON
                 PrintWriter out = response.getWriter();
                 Gson gson = new Gson();
                 out.print(gson.toJson(data));

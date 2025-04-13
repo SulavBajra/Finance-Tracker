@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/add")
 public class AddTransactionServlet extends HttpServlet {
-    // private static final Logger logger = Logger.getLogger(AddTransactionServlet.class.getName());
     private TransactionDAO transactionDAO;
     
     @Override
@@ -30,7 +29,6 @@ public class AddTransactionServlet extends HttpServlet {
         try {
             User user = validateUser(request, response);
             if (user == null) return;
-            // response.sendRedirect(request.getContextPath() + "/transactions/add.jsp");
             request.setAttribute("user", user);
             request.getRequestDispatcher("/transactions/add.jsp").forward(request, response);
             
@@ -63,10 +61,7 @@ public class AddTransactionServlet extends HttpServlet {
                 transactionDate
             );
             if (transactionDAO.addTransaction(transaction)) {
-                // List<Transaction> transactions = transactionDAO.getUserTransaction(user.getUserId());
-                // request.setAttribute("transactions", transactions);
                  request.setAttribute("transaction", transaction);
-                // response.sendRedirect(request.getContextPath() + "/transactions/list.jsp");
                 request.getRequestDispatcher("transactions/list.jsp").forward(request, response);
             } else {
                 request.setAttribute("error",transactionDate+"Failed to add transaction");
@@ -77,7 +72,6 @@ public class AddTransactionServlet extends HttpServlet {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
         } catch (Exception e) {
-            // logger.log(Level.SEVERE, "Error adding transaction", e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
@@ -91,35 +85,4 @@ public class AddTransactionServlet extends HttpServlet {
         }
         return (User) session.getAttribute("user");
     }
-    
-    // private Transaction createTransactionFromRequest(HttpServletRequest request, User user) {
-    //     double amount;
-    //     try {
-    //         amount = Double.parseDouble(request.getParameter("amount"));
-    //     } catch (NumberFormatException e) {
-    //         throw new IllegalArgumentException("Invalid amount format");
-    //     }
-        
-    //     String type = request.getParameter("type");
-    //     String category = request.getParameter("category");
-    //     String description = request.getParameter("description");
-    //     String transactionDate = request.getParameter("transaction_date");
-        
-    //     if (type == null || !(type.equals("income") || type.equals("expense"))) {
-    //         throw new IllegalArgumentException("Invalid transaction type");
-    //     }
-        
-    //     if (category == null || category.trim().isEmpty()) {
-    //         throw new IllegalArgumentException("Category is required");
-    //     }
-        
-    //     return new Transaction(
-    //         user.getUserId(),
-    //         amount,
-    //         type,
-    //         category,
-    //         description,
-    //         transactionDate
-    //     );
-    // }
 }

@@ -62,12 +62,12 @@
   </dependencies>
   <build>
     <finalName>myfinancetracker</finalName>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <pluginManagement>
       <plugins>
         <plugin>
           <groupId>org.apache.tomcat.maven</groupId>
           <artifactId>tomcat10-maven-plugin</artifactId>
-          <version>10.0.0</version> <!-- Ensure this version matches your Tomcat version -->
+          <version>10.0.0</version> 
           <configuration>
               <path>/financetracker</path> <!-- This is the URL path -->
               <url>http://localhost:8080/manager/text</url> <!-- Tomcat Manager URL -->
@@ -88,7 +88,6 @@
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.1.0</version>
         </plugin>
-        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
         <plugin>
           <artifactId>maven-resources-plugin</artifactId>
           <version>3.0.2</version>

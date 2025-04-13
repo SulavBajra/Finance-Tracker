@@ -3,7 +3,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const categorySelect = document.getElementById("category");
 
   const categories = {
-    income: ["Salary", "Freelance", "Investments", "Gifts", "Other Income"],
+    income: [
+      "Salary",
+      "Freelance",
+      "Return on Investments",
+      "Received Gifts",
+      "Other Income",
+    ],
     expense: [
       "Food",
       "Transport",
