@@ -25,7 +25,7 @@
 
     <main class="container">
         <header class="page-header">
-            <h1 class="prev"><a href="${pageContext.request.contextPath}/dashboard.jsp">&larr;Previous</a></h1>
+            <h1 class="prev"><a href="${pageContext.request.contextPath}/dashboard.jsp" class="btn btn-primary">Dashboard</a></h1>
             <h1><i class="fas fa-exchange-alt"></i> Transaction History</h1>
             
             <c:if test="${not empty error}">
@@ -34,9 +34,12 @@
                 </div>
             </c:if>
             
-            <a href="${pageContext.request.contextPath}/transactions/add.jsp" class="btn btn-primary">
+            <div class="activity-bar"><a href="${pageContext.request.contextPath}/transactions/add.jsp" class="btn btn-primary">
                 <i class="fas fa-plus"></i> New Transaction
             </a>
+            <a href="${pageContext.request.contextPath}/export" class="btn btn-primary">Export to CSV</a>
+            <a href="${pageContext.request.contextPath}/transactions/import.jsp" class="btn btn-primary">Import from CSV</a>
+        </div>
         </header>
         <section class="transaction-list">
             <c:choose>

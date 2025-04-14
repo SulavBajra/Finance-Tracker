@@ -9,7 +9,7 @@ import com.financetracker.model.*;
 public class Test {
     public static void main(String[] args) {
         
-
+        
       String sql = "SELECT * FROM transactions WHERE transaction_id = ? and user_id = ?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
