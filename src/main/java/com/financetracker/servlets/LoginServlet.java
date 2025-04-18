@@ -6,6 +6,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -23,21 +24,24 @@ public class LoginServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-                System.out.println("LoginServlet reached!");
-        String username = request.getParameter("username");
+        throws ServletException, IOException {
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
         
-        User user = userDao.loginUser(username, password);
-        
+        try {
+        User user = userDao.loginUser(email, password);
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            // response.sendRedirect(request.getContextPath() + "/dashboard.jsp");
             request.setAttribute("user", user);
-            request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/dashboard");
         } else {
             request.setAttribute("error", "Invalid username or password");
+            request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
+        }
+     } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            request.setAttribute("error", "An internal error occurred. Please try again later.");
             request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
         }
     }

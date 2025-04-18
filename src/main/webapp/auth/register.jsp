@@ -5,7 +5,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register - Finance Tracker</title>
-    <link rel="stylesheet" href="../assets/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="<%=request.getContextPath()%>/assets/css/style.css"
+    />
   </head>
   <body>
     <div class="auth-container">
@@ -21,6 +24,7 @@
         <form
           action="${pageContext.request.contextPath}/register"
           method="post"
+          onsubmit="return validateForm()"
         >
           <div class="form-group">
             <label for="username">Username</label>
@@ -37,15 +41,21 @@
             <input type="password" id="password" name="password" required />
           </div>
 
+          <div class="form-group">
+            <label for="repassword">Confirm Password</label>
+            <input type="password" id="password" name="repassword" required />
+          </div>
+
           <button type="submit" class="btn btn-primary">Register</button>
         </form>
 
         <div class="auth-footer">
-          Already have an account? <a href="login.jsp">Login here</a>
+          Already have an account?
+          <a href="<%=request.getContextPath()%>//auth/login.jsp">Login here</a>
         </div>
       </div>
     </div>
 
-    <script src="../assets/js/auth.js"></script>
+    <script src="<%=request.getContextPath()%>//assets/js/auth.js"></script>
   </body>
 </html>

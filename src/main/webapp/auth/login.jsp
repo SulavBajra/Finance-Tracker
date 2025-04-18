@@ -27,8 +27,8 @@
 
         <form action="${pageContext.request.contextPath}/login" method="post">
           <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required />
+            <label for="username">Email</label>
+            <input type="text" id="username" name="email" required />
           </div>
 
           <div class="form-group">
@@ -40,11 +40,14 @@
         </form>
 
         <div class="auth-footer">
-          Don't have an account? <a href="register.jsp">Register here</a>
+          Don't have an account?
+          <a href="<%=request.getContextPath()%>//auth/register.jsp"
+            >Register here</a
+          >
         </div>
       </div>
     </div>
 
-    <script src="../assets/js/transactions.js"></script>
+    <script src="<%=request.getContextPath()%>//assets/js/transactions.js"></script>
   </body>
 </html>
