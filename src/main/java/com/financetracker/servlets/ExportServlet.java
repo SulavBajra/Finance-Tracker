@@ -4,20 +4,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import com.financetracker.dao.CheckUser;
 import com.financetracker.dao.TransactionDAO;
 import com.financetracker.model.Transaction;
 import com.financetracker.model.User;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 
 @WebServlet("/export")
-public class ExportServlet extends HttpServlet {
+public class ExportServlet extends CheckUser {
     private TransactionDAO transactionDAO;
 
     @Override
@@ -56,16 +55,5 @@ public class ExportServlet extends HttpServlet {
             writer.flush();
             writer.close();
         }
-    }
-
-    private User validateUser(HttpServletRequest request, HttpServletResponse response) 
-            throws IOException {
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
-            return null;
-        }
-        return (User) session.getAttribute("user");
-    }
-        
+    }   
 }

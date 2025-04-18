@@ -2,19 +2,18 @@ package com.financetracker.servlets;
 
 import java.io.IOException;
 
+import com.financetracker.dao.CheckUser;
 import com.financetracker.dao.TransactionDAO;
 import com.financetracker.model.Transaction;
 import com.financetracker.model.User;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/edit")
-public class EditTransactionServlet extends HttpServlet{
+public class EditTransactionServlet extends CheckUser{
     private static TransactionDAO transactionDAO;
     @Override
     public void init() throws ServletException {
@@ -36,7 +35,7 @@ public class EditTransactionServlet extends HttpServlet{
                 return;
             }
             request.setAttribute("transaction", transaction);
-            request.getRequestDispatcher("/transactions/edit.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/edit.jsp").forward(request, response);
             
         } catch (NumberFormatException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid transaction ID");
@@ -70,7 +69,10 @@ public class EditTransactionServlet extends HttpServlet{
                 transactionDate
             );
             if (transactionDAO.updateTransaction(transaction,transactionId)) {
-                response.sendRedirect(request.getContextPath() + "/transactions/list.jsp");
+                // response.sendRedirect(request.getContextPath() + "/list");
+                request.setAttribute("message", "Transaction updated successfully");
+                request.setAttribute("transaction", transaction);
+                request.getRequestDispatcher("/WEB-INF/views/list.jsp").forward(request, response);
             } else {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Transaction not found or not owned by user");
             }
@@ -83,15 +85,4 @@ public class EditTransactionServlet extends HttpServlet{
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
-
-    private User validateUser(HttpServletRequest request, HttpServletResponse response) 
-            throws IOException {
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
-            return null;
-        }
-        return (User) session.getAttribute("user");
-    }
-
 }

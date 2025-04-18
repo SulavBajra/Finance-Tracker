@@ -19,7 +19,6 @@ public class LoginServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
-        // Show login form
         request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
     }
 
@@ -34,7 +33,9 @@ public class LoginServlet extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect(request.getContextPath() + "/dashboard.jsp");
+            // response.sendRedirect(request.getContextPath() + "/dashboard.jsp");
+            request.setAttribute("user", user);
+            request.getRequestDispatcher("/WEB-INF/views/dashboard.jsp").forward(request, response);
         } else {
             request.setAttribute("error", "Invalid username or password");
             request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
