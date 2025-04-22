@@ -45,6 +45,12 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
             </a>
             <a href="${pageContext.request.contextPath}/export" class="btn btn-primary">Export to CSV</a>
             <a href="${pageContext.request.contextPath}/import" class="btn btn-primary">Import from CSV</a>
+            <div>
+                <form method="get" action="${pageContext.request.contextPath}/search">
+                    <input type="text" name="query" placeholder="Search transactions..." class="search-input">
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </form>
+            </div>
         </div>
         </header>
         <section class="transaction-list">
@@ -121,7 +127,7 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
                 <span class="confirm--title">Confirmation</span>
                 <button class="confirm--close" onclick="checkFalse()">&times;</button>
             </div>
-            <div class="confirm--content">Are you sure you want to make these changes</div>
+            <div class="confirm--content">Are you sure you want to make changes</div>
             <div class="confirm--buttons">
                 <button class="confirm--button confirm--button--ok confirm--button--fill">
                     Yes

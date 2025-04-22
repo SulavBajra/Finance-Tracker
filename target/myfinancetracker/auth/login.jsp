@@ -41,13 +41,13 @@
 
         <div class="auth-footer">
           Don't have an account?
-          <a href="<%=request.getContextPath()%>//auth/register.jsp"
+          <a href="<%=request.getContextPath()%>/auth/register.jsp"
             >Register here</a
           >
         </div>
       </div>
     </div>
 
-    <script src="<%=request.getContextPath()%>//assets/js/transactions.js"></script>
+    <script src="<%=request.getContextPath()%>/assets/js/transactions.js"></script>
   </body>
 </html>

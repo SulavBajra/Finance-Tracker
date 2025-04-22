@@ -6,7 +6,6 @@
 /home/sulav/Project/myfinancetracker/src/main/java/com/financetracker/servlets/DeleteTransactionServlet.java
 /home/sulav/Project/myfinancetracker/src/main/java/com/financetracker/servlets/ImportServlet.java
 /home/sulav/Project/myfinancetracker/src/main/java/com/financetracker/servlets/DisplayDashboardServlet.java
-/home/sulav/Project/myfinancetracker/src/main/java/com/financetracker/dao/Test.java
 /home/sulav/Project/myfinancetracker/src/main/java/com/financetracker/dao/UserDAO.java
 /home/sulav/Project/myfinancetracker/src/main/java/com/financetracker/model/Transaction.java
 /home/sulav/Project/myfinancetracker/src/main/java/com/financetracker/servlets/LogoutServlet.java

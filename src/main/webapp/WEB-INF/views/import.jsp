@@ -1,9 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %> <%@ page
 import="com.financetracker.model.User" %>
-<!-- <% User user = (User)
-session.getAttribute("user"); if (user == null) {
-response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; }
-%> -->
 <!DOCTYPE html>
 <html lang="en">
   <head>

@@ -14,6 +14,10 @@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
       rel="stylesheet"
       href="<%=request.getContextPath()%>/assets/css/style.css"
     />
+    <link
+      rel="stylesheet"
+      href="${pageContext.request.contextPath}/assets/css/pop.css"
+    />
   </head>
   <body>
     <sql:setDataSource
@@ -55,7 +59,11 @@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
       <div class="alert alert-danger"><%= request.getAttribute("error") %></div>
       <% } %>
 
-      <form action="${pageContext.request.contextPath}/edit" method="post">
+      <form
+        action="${pageContext.request.contextPath}/edit"
+        method="post"
+        onsubmit="return pop(event)"
+      >
         <div class="form-group">
           <label for="type">Type</label>
           <select id="type" name="type" required>
@@ -118,9 +126,31 @@ ${transactions.rows[0].description}</textarea
           >
         </div>
       </form>
+      <div class="confirm" style="display: none">
+        <div class="confirm--window">
+          <div class="confirm--titlebar">
+            <span class="confirm--title">Confirmation</span>
+            <button class="confirm--close" onclick="checkFalse()">
+              &times;
+            </button>
+          </div>
+          <div class="confirm--content">
+            Are you sure you want to make changes
+          </div>
+          <div class="confirm--buttons">
+            <button
+              class="confirm--button confirm--button--ok confirm--button--fill"
+            >
+              Yes
+            </button>
+            <button class="confirm--button confirm--button--cancel">No</button>
+          </div>
+        </div>
+      </div>
     </main>
 
     <script src="<%=request.getContextPath()%>/assets/js/add-transaction.js"></script>
+    <script src="<%=request.getContextPath()%>/assets/js/popup.js"></script>
     <script>
       // Set default date to today
       const today = new Date().toISOString().split("T")[0];

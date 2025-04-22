@@ -51,7 +51,7 @@
 
         <div class="auth-footer">
           Already have an account?
-          <a href="<%=request.getContextPath()%>//auth/login.jsp">Login here</a>
+          <a href="<%=request.getContextPath()%>/auth/login.jsp">Login here</a>
         </div>
       </div>
     </div>

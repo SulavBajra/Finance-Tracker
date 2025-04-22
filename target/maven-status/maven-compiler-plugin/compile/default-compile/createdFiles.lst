@@ -7,6 +7,7 @@ com/financetracker/servlets/ListTransactionsServlet.class
 com/financetracker/model/DatabaseConnection.class
 com/financetracker/servlets/DisplayDashboardServlet.class
 com/financetracker/servlets/ImportServlet.class
+com/financetracker/dao/CheckUser.class
 com/financetracker/servlets/EditTransactionServlet.class
 com/financetracker/servlets/LoginServlet.class
 com/financetracker/servlets/CategoryDataServlet.class
@@ -14,4 +15,5 @@ com/financetracker/servlets/CategoryExpenseServlet.class
 com/financetracker/dao/UserDAO.class
 com/financetracker/servlets/AddTransactionServlet.class
 com/financetracker/servlets/RegisterServlet.class
+com/financetracker/dao/PasswordUtils.class
 com/financetracker/servlets/ExportServlet.class
