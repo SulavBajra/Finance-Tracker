@@ -23,9 +23,22 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
     url = "jdbc:mysql://localhost/finance_tracker"
     user = "admin"  password = "admin123"/>
 
-    <sql:query var="transactions" dataSource="${snapshot}">
-        SELECT * FROM transactions where user_id = ? order by transaction_date desc
+     <!-- <sql:query var="transactions" dataSource="${snapshot}">
+        SELECT * FROM transactions where user_id = ? 
         <sql:param value="${sessionScope.user.userId}"/>
+    </sql:query> -->
+    <sql:query var="transactions" dataSource="${snapshot}">
+    SELECT * 
+    FROM transactions 
+    WHERE user_id = ? 
+    <sql:param value="${sessionScope.user.userId}"/>
+    ORDER BY 
+    <c:choose>
+        <c:when test="${param.sortBy == 'category'}">category</c:when>
+        <c:when test="${param.sortBy == 'type'}">type</c:when>
+        <c:when test="${param.sortBy == 'amount'}">amount DESC</c:when>
+        <c:otherwise>transaction_date DESC</c:otherwise>
+    </c:choose>
     </sql:query>
    
     <main class="container">
@@ -39,18 +52,28 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
                     <i class="fas fa-exclamation-circle"></i> ${error}
                 </div>
             </c:if>
-            
             <div class="activity-bar"><a href="${pageContext.request.contextPath}/add" class="btn btn-primary">
                 <i class="fas fa-plus"></i> New Transaction
             </a>
             <a href="${pageContext.request.contextPath}/export" class="btn btn-primary">Export to CSV</a>
             <a href="${pageContext.request.contextPath}/import" class="btn btn-primary">Import from CSV</a>
-            <div>
+            <!-- <div>
                 <form method="get" action="${pageContext.request.contextPath}/search">
                     <input type="text" name="query" placeholder="Search transactions..." class="search-input">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
                 </form>
-            </div>
+            </div> -->
+           <div class="activity-bar">
+    <form method="get" action="${pageContext.request.contextPath}/list">
+        <label for="sortBy">Sort by:</label>
+        <select name="sortBy" id="sortBy" onchange="this.form.submit()">
+            <option value="date" ${param.sortBy == 'date' ? 'selected' : ''}>Date</option>
+            <option value="category" ${param.sortBy == 'category' ? 'selected' : ''}>Category</option>
+            <option value="type" ${param.sortBy == 'type' ? 'selected' : ''}>Type</option>
+            <option value="amount" ${param.sortBy == 'amount' ? 'selected' : ''}>Amount</option>
+        </select>
+    </form>
+</div>
         </div>
         </header>
         <section class="transaction-list">
@@ -75,12 +98,12 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
                                     <th>Category</th>
                                     <th class="text-right">Amount</th>
                                     <th>Edit</th>
-                                    <!-- <th>Description</th> -->
+                                    <th>View</th>
                                     <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${transactions.rows}" var="txn">
+                                <c:forEach items="${transactions.rows}" var="txn">                                
                                     <tr class="transaction-${txn.type}">
                                         <td>${txn.transaction_date}</td>
                                         <td>
@@ -101,6 +124,13 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
                                             <button type="submit" class="btn btn-icon btn-good" 
                                             title="Edit Transaction"><i class='fas fa-plus' ></i></button>
                                         </form></td>
+                                        <td>
+                                            <form method="get" action="${pageContext.request.contextPath}/view">
+                                            <input type="hidden" name="id" value="${txn.transaction_id}">
+                                            <button type="submit"  class="btn btn-icon btn-good">
+                                                <i class="fa-solid fa-eye"></i></button>
+                                            </form>
+                                        </td>
                                         <td class="actions">
                                             <form method="post" 
                                                   action="${pageContext.request.contextPath}/delete"
@@ -121,6 +151,8 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
             </c:choose>
         </section>
     </main>
+    
+            
     <div class="confirm" style="display: none;">
         <div class="confirm--window">
             <div class="confirm--titlebar">
@@ -137,8 +169,10 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
         </div>
     </div>
     
+    
     <script src="<%=request.getContextPath()%>/assets/js/popup.js
     "></script>
+       
 </body>
 </html> 
 

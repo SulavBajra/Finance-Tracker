@@ -1,0 +1,144 @@
+/* General Reset */
+body,
+h1,
+h2,
+p,
+form,
+input,
+select,
+button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* Container */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 20px 0 10px;
+}
+
+/* Form Styles */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input,
+select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus {
+  border-color: #007bff;
+}
+
+button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3;
+  transform: scale(1.02);
+}
+
+/* Result Section */
+hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+p {
+  margin: 10px 0;
+  font-size: 1rem;
+}
+
+p.error {
+  color: #d9534f;
+  font-weight: bold;
+}
+
+p strong {
+  color: #007bff;
+}
+
+.container a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between the icon and text */
+  text-decoration: none; /* Remove underline */
+  color: #007bff; /* Bootstrap blue for links */
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 1rem; /* Space below the link */
+  transition: color 0.3s ease-in-out; /* Smooth hover transition */
+}
+
+.container a:hover {
+  color: #0056b3; /* Darker shade of blue on hover */
+}
+
+.container a i.fa-arrow-left {
+  font-size: 1.2rem; /* Slightly larger for emphasis */
+}
+
+/* Accessibility and Responsiveness */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+}

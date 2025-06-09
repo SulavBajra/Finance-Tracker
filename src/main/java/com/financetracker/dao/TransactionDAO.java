@@ -89,7 +89,8 @@ public class TransactionDAO {
         }
     }
 
-    public Transaction getTransactionById(int transactionId,int userId){ 
+    public List<Transaction> getTransactionById(int transactionId,int userId){ 
+        List<Transaction> transactions = new ArrayList<>();
         String sql = "SELECT * FROM transactions WHERE transaction_id = ? and user_id = ?";
         try (Connection connection = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -105,11 +106,11 @@ public class TransactionDAO {
                 transaction.setCategory(resultSet.getString("category"));
                 transaction.setDescription(resultSet.getString("description"));
                 transaction.setTransactionDate(resultSet.getString("transaction_date"));
-                return transaction;
+                transactions.add(transaction);
+                return transactions;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            // System.out.println("Error fetching transaction: " + e.getMessage());
         }
         return null;
     }

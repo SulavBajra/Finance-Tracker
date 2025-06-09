@@ -7,7 +7,7 @@ fetch("/myfinancetracker/getCategoryData")
   })
   .then((data) => {
     console.log("Category Data:", data);
-    renderCategoryChart(data);
+    renderCategoryBarGraph(data);
   })
   .catch((error) => {
     console.error("Error fetching category data:", error);
@@ -22,7 +22,7 @@ fetch("/myfinancetracker/getExpenseData")
   })
   .then((data) => {
     console.log("Category Data:", data);
-    renderExpenseChart(data);
+    renderExpenseBarGraph(data);
   })
   .catch((error) => {
     console.error("Error fetching category data:", error);
@@ -76,6 +76,60 @@ function renderExpenseChart(data) {
           ], // Adjust colors
         },
       ],
+    },
+  });
+}
+
+function renderCategoryBarGraph(data) {
+  const ctx = document.getElementById("categoryBarGraph").getContext("2d");
+  const categories = data.map((item) => item.category);
+  const totals = data.map((item) => item.total);
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: categories,
+      datasets: [
+        {
+          label: "Income by Category",
+          data: totals,
+          backgroundColor: "#36A2EB",
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+function renderExpenseBarGraph(data) {
+  const ctx = document.getElementById("expenseBarGraph").getContext("2d");
+  const categories = data.map((item) => item.category);
+  const totals = data.map((item) => item.total);
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: categories,
+      datasets: [
+        {
+          label: "Expense by Category",
+          data: totals,
+          backgroundColor: "#FF6384",
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
     },
   });
 }

@@ -9,11 +9,21 @@
       rel="stylesheet"
       href="<%=request.getContextPath()%>/assets/css/style.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
   <body>
     <div class="auth-container">
       <div class="auth-card">
-        <h2>Login</h2>
+        <div class="auth-back">
+          <span>
+            <a href="<%=request.getContextPath()%>/index.jsp"
+              ><i class="fa fa-arrow-left"></i> </a
+          ></span>
+          <h2>Login</h2>
+        </div>
 
         <% if (request.getParameter("registration") != null) { %>
         <div class="alert alert-success">

@@ -42,7 +42,6 @@ public class ListTransactionsServlet extends CheckUser {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Handle POST requests if needed
         try {
             User user = validateUser(request, response);
             if (user == null) return;

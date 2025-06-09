@@ -1,6 +1,7 @@
 package com.financetracker.servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.financetracker.dao.CheckUser;
 import com.financetracker.dao.TransactionDAO;
@@ -29,7 +30,7 @@ public class EditTransactionServlet extends CheckUser{
             if (user == null) return;
             
             int transactionId = Integer.parseInt(request.getParameter("id"));
-            Transaction transaction = transactionDAO.getTransactionById(transactionId, user.getUserId());
+            List<Transaction> transaction = transactionDAO.getTransactionById(transactionId, user.getUserId());
             if (transaction == null) {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Transaction not found or not owned by user");
                 return;

@@ -56,11 +56,11 @@ public class UserDAO {
             error = "All fields are required.";
             return error;
         }
-        if (!username.matches("^[a-zA-Z0-9_]{3,20}$")) {
+        if (!username.matches("^[a-zA-Z][a-zA-Z0-9_]{2,19}$")) {
             error = "Username must be 3-20 characters long and can only contain letters, numbers, and underscores.";
             return error;
         }
-        if(!email.matches("\\S+@\\S+\\.\\S+")){
+        if(isEmailValid(email)==false){
             error = "Invalid email format.";
             return error;
         }
@@ -92,5 +92,11 @@ public class UserDAO {
             return false;
         }
     }
+
+   private boolean isEmailValid(String email) {
+        String emailRegex = "(?i)^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        return email.matches(emailRegex);
+    }
+
 
 }

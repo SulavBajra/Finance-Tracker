@@ -111,6 +111,25 @@ nav ul {
   margin-top: 10px;
 }
 
+a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-back {
+  display: grid;
+  grid-column: 1;
+  grid-template-columns: 0fr 5fr;
+}
+
+.auth-back h2 {
+}
+
+.fa-arrow-left {
+  font-size: 1.2rem;
+  padding: 15px;
+}
+
 nav a {
   color: white;
   text-decoration: none;

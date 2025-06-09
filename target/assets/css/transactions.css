@@ -209,3 +209,25 @@
     font-size: 0.875rem;
   }
 }
+
+.activity-bar {
+  display: flex;
+  flex-wrap: wrap; /* allows items to wrap on smaller screens */
+  gap: 1rem; /* spacing between buttons/links/forms */
+  align-items: center; /* vertically center content */
+  padding-top: 10px;
+}
+
+/* Optional: Ensure forms and buttons inside activity bar have consistent sizing */
+.activity-bar form,
+.activity-bar a.btn {
+  flex-shrink: 0; /* prevent shrinking */
+}
+
+/* For smaller screens, stack the activity bar items vertically */
+@media (max-width: 480px) {
+  .activity-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

@@ -16,7 +16,7 @@ function validateForm() {
     return false;
   }
 
-  if (!/\S+@\S+\.\S+/.test(email)) {
+  if (!/^(?!\d+$)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
     alert("Please enter a valid email address.");
     return false;
   }

@@ -50,6 +50,11 @@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
                 >Transactions</a
               >
             </li>
+               <li>
+              <a href="${pageContext.request.contextPath}/fixedDeposit"
+                >FD Calculator</a
+              >
+            </li>
             <li>
               <a href="${pageContext.request.contextPath}/logout">Logout</a>
             </li>
@@ -85,13 +90,18 @@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
         class="btn btn-primary"
         >Add Transaction</a
       >
+      <a
+        href="<%= request.getContextPath() %>/budget"
+        class="btn btn-primary"
+        >Set Budget</a
+      >
         <div class="visual">
           <div id="chart-container">
-            <canvas id="categoryChart" width="100" height="100"></canvas>
+            <canvas id="categoryBarGraph" width="100" height="100"></canvas>
             <p>Income</p>
           </div>
           <div id="chart-container">
-            <canvas id="categoryExpenseChart" width="100" height="100"></canvas>
+            <canvas id="expenseBarGraph" width="100" height="100"></canvas>
             <p>Expense</p>
         </div>
        
