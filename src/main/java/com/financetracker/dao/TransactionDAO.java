@@ -180,6 +180,27 @@ public class TransactionDAO {
         
         return transactions;
     }
+
+    public int getExpenseForYear(int userId,String year){
+        int expense=0;
+        String sql = "SELECT SUM(amount) AS total_expense FROM transactions WHERE user_id = ? AND type = 'expense' AND YEAR(transaction_date) = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setInt(1, userId);
+        stmt.setString(2, year);
+        try (ResultSet resultSet = stmt.executeQuery()) {
+            if (resultSet.next()) {
+                expense = resultSet.getInt("total_expense");
+            } else {
+                System.err.println("No data found for user_id: " + userId + " and year: " + year);
+            }
+        }
+        } catch (SQLException e) {
+            System.err.println("SQL Error in getExpenseForYear: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return expense;
+    }
     
     public List<Transaction> getTransactionsByCategory(int userId) throws SQLException{
         List<Transaction> categoryDataList = new ArrayList<>();

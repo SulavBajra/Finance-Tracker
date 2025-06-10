@@ -1,9 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %> <%@ page
-import="com.financetracker.model.User" %> <% User user = (User)
-session.getAttribute("user");%>
+import="com.financetracker.model.User" %><% User user = (User) request.getAttribute("user"); %>
  <%@ page import = "java.io.*,java.util.*,java.sql.*"%> <%@ page import =
-"javax.servlet.http.*,javax.servlet.*" %> <%@ taglib prefix="c"
-uri="jakarta.tags.core" %> <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %> <%@
+"javax.servlet.http.*,javax.servlet.*" %><%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <%@
 taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +11,7 @@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - Finance Tracker</title>
     <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
@@ -35,12 +35,12 @@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
     </sql:query>
     <header class="dashboard-header">
       <div class="container">
-        <h1>Welcome, <%= user.getUsername() %></h1>
+        <h1>Welcome, ${user.username}</h1>
         <nav>
           <ul>
             <li>
               <a
-                href="${pageContext.request.contextPath}/WEB-INF/views/dashboard.jsp"
+                href="${pageContext.request.contextPath}/dashboard"
                 class="active"
                 >Dashboard</a
               >
@@ -76,10 +76,20 @@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
         </div>
 
         <div class="card balance-card">
-          <h3>Balance</h3>
+          
+          <c:choose>
+            <c:when test="${not empty status and status}">
+            <h3 class="balance-heading">Balance</h3>
+              <span class="warning-message"><i class="fa-solid fa-triangle-exclamation"></i>Warning</span>
+            </c:when>
+            <c:otherwise>
+              <h3>Balance</h3>
+            </c:otherwise>
+          </c:choose>
+
           <p id="balance">
-            &#36;${summaryResult.rows[0].total_income -
-            summaryResult.rows[0].total_expense}
+            &#36;${summaryResult.rows[0].total_income != null ? summaryResult.rows[0].total_income : 0 
+            - summaryResult.rows[0].total_expense != null ? summaryResult.rows[0].total_expense : 0}
           </p>
         </div>
       </section>

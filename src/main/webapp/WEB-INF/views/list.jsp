@@ -57,12 +57,6 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
             </a>
             <a href="${pageContext.request.contextPath}/export" class="btn btn-primary">Export to CSV</a>
             <a href="${pageContext.request.contextPath}/import" class="btn btn-primary">Import from CSV</a>
-            <!-- <div>
-                <form method="get" action="${pageContext.request.contextPath}/search">
-                    <input type="text" name="query" placeholder="Search transactions..." class="search-input">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
-                </form>
-            </div> -->
            <div class="activity-bar">
     <form method="get" action="${pageContext.request.contextPath}/list">
         <label for="sortBy">Sort by:</label>

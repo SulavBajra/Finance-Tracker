@@ -540,6 +540,76 @@ nav a.active::after {
   color: #e74c3c;
 }
 
+.warning-message {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #fce8e6;
+  color: #b93025;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1.5px solid #e74c3c;
+  box-shadow: 0 0 8px rgba(231, 76, 60, 0.4);
+  font-size: 0.9rem;
+  user-select: none;
+  cursor: default; /* shows pointer on hover */
+  vertical-align: middle;
+}
+
+/* Tooltip text */
+.warning-message::after {
+  content: "Exceeding yearly budget";
+  position: absolute;
+  bottom: 125%; /* place above the warning */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #b93025;
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+/* Tooltip arrow */
+.warning-message::before {
+  content: "";
+  position: absolute;
+  bottom: 115%; /* just below the tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #b93025 transparent transparent transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+/* Show tooltip on hover */
+.warning-message:hover::after,
+.warning-message:hover::before {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.warning-message i {
+  font-size: 1rem;
+}
+
+.balance-heading {
+  display: inline-block;
+  margin-right: 10px;
+}
+
 .actions-col {
   width: 60px;
   text-align: center;
