@@ -1,0 +1,280 @@
+/* assets/css/dashboard.css */
+
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --danger-color: #e74c3c;
+  --dark-color: #2c3e50;
+  --light-color: #ecf0f1;
+  --gray-color: #95a5a6;
+  --income-color: #2ecc71;
+  --expense-color: #e74c3c;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light-color);
+  margin: 0;
+  padding: 0;
+  color: var(--dark-color);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header */
+.dashboard-header {
+  background-color: var(--dark-color);
+  color: white;
+  padding: 15px 0;
+}
+
+.dashboard-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.dashboard-header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 25px;
+}
+
+.dashboard-header nav ul li a,
+.dashboard-header nav ul li form button {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard-header nav ul li a:hover,
+.dashboard-header nav ul li form button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-header nav ul li a.active {
+  color: var(--primary-color);
+  text-shadow: 0 0 8px var(--primary-color);
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+/* Summary Cards */
+.summary-cards {
+  display: flex;
+  gap: 20px;
+  margin-top: 30px;
+  justify-content: space-between;
+}
+
+.card {
+  flex: 1;
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(44, 62, 80, 0.1);
+  text-align: center;
+}
+
+.card h3 {
+  margin: 0 0 15px 0;
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--gray-color);
+}
+
+.card p {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Colors for Income, Expense, Balance */
+.income-card {
+  border-left: 6px solid var(--income-color);
+  color: var(--income-color);
+}
+
+.expense-card {
+  border-left: 6px solid var(--expense-color);
+  color: var(--expense-color);
+}
+
+.balance-card {
+  border-left: 6px solid var(--secondary-color);
+  color: var(--secondary-color);
+  position: relative;
+}
+
+.balance-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--danger-color);
+}
+
+.warning-message {
+  color: var(--danger-color);
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+/* Recent Transactions Section */
+.recent-transactions {
+  margin-top: 40px;
+}
+
+.recent-transactions a.btn {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin-right: 15px;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.recent-transactions a.btn:hover {
+  background-color: #2874a6;
+}
+
+/* Chart Containers */
+.visual {
+  display: flex;
+  gap: 50px;
+  margin-top: 30px;
+  justify-content: center;
+}
+
+#chart-container {
+  width: 100%;
+  max-width: 450px;
+  height: 400px; /* fixed height for good aspect ratio */
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(44, 62, 80, 0.1);
+  padding: 15px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+#chart-container canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#chart-container p {
+  margin-top: 12px;
+  font-weight: 600;
+  color: var(--gray-color);
+}
+
+/* Confirmation Popup */
+.confirm {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(44, 62, 80, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.confirm--window {
+  background: white;
+  border-radius: 8px;
+  width: 320px;
+  box-shadow: 0 4px 12px rgba(44, 62, 80, 0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.confirm--titlebar {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 12px 20px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.confirm--close {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.confirm--content {
+  padding: 25px 20px;
+  font-size: 16px;
+  color: var(--dark-color);
+}
+
+.confirm--buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  padding: 15px 20px;
+  background-color: var(--light-color);
+}
+
+.confirm--button {
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: 600;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.confirm--button--ok {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.confirm--button--ok:hover {
+  background-color: #27ae60;
+}
+
+.confirm--button--cancel {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.confirm--button--cancel:hover {
+  background-color: #c0392b;
+}

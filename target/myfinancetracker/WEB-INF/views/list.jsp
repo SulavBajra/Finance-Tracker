@@ -14,6 +14,7 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction History</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/dashboard.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/transactions.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/pop.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -40,11 +41,14 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
         <c:otherwise>transaction_date DESC</c:otherwise>
     </c:choose>
     </sql:query>
-   
+   <%
+        String currentUri = request.getRequestURI();
+        request.setAttribute("currentUri", currentUri);
+    %>
+        <jsp:include page="/WEB-INF/views/layout.jsp" />
     <main class="container">
         
         <header class="page-header">
-            <h1 class="prev"><a href="${pageContext.request.contextPath}/dashboard" class="btn btn-primary">Dashboard</a></h1>
             <h1><i class="fas fa-exchange-alt"></i> Transaction History</h1>
             
             <c:if test="${not empty error}">
@@ -56,24 +60,18 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
                 <i class="fas fa-plus"></i> New Transaction
             </a>
             <a href="${pageContext.request.contextPath}/export" class="btn btn-primary">Export to CSV</a>
-            <a href="${pageContext.request.contextPath}/import" class="btn btn-primary">Import from CSV</a>
-            <!-- <div>
-                <form method="get" action="${pageContext.request.contextPath}/search">
-                    <input type="text" name="query" placeholder="Search transactions..." class="search-input">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
-                </form>
-            </div> -->
+            <!-- <a href="${pageContext.request.contextPath}/import" class="btn btn-primary">Import from CSV</a> -->
            <div class="activity-bar">
-    <form method="get" action="${pageContext.request.contextPath}/list">
-        <label for="sortBy">Sort by:</label>
-        <select name="sortBy" id="sortBy" onchange="this.form.submit()">
-            <option value="date" ${param.sortBy == 'date' ? 'selected' : ''}>Date</option>
-            <option value="category" ${param.sortBy == 'category' ? 'selected' : ''}>Category</option>
-            <option value="type" ${param.sortBy == 'type' ? 'selected' : ''}>Type</option>
-            <option value="amount" ${param.sortBy == 'amount' ? 'selected' : ''}>Amount</option>
-        </select>
-    </form>
-</div>
+            <form method="get" action="${pageContext.request.contextPath}/list" class="sort-form">
+                <label for="sortBy">Sort by:</label>
+                <select name="sortBy" id="sortBy" onchange="this.form.submit()">
+                    <option value="date" ${param.sortBy == 'date' ? 'selected' : ''}>Date</option>
+                    <option value="category" ${param.sortBy == 'category' ? 'selected' : ''}>Category</option>
+                    <option value="type" ${param.sortBy == 'type' ? 'selected' : ''}>Type</option>
+                    <option value="amount" ${param.sortBy == 'amount' ? 'selected' : ''}>Amount</option>
+                </select>
+            </form>
+            </div>
         </div>
         </header>
         <section class="transaction-list">
@@ -119,7 +117,7 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
                                         </td>
                                         <!-- <td class="description">${txn.description}</td> -->
                                          <td>
-                                            <form method="get" action="${pageContext.request.contextPath}/edit" onsubmit="return pop(event)">
+                                            <form method="get" action="${pageContext.request.contextPath}/edit">
                                             <input type="hidden" name="id" value="${txn.transaction_id}">    
                                             <button type="submit" class="btn btn-icon btn-good" 
                                             title="Edit Transaction"><i class='fas fa-plus' ></i></button>
@@ -127,7 +125,7 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
                                         <td>
                                             <form method="get" action="${pageContext.request.contextPath}/view">
                                             <input type="hidden" name="id" value="${txn.transaction_id}">
-                                            <button type="submit"  class="btn btn-icon btn-good">
+                                            <button type="submit"  class="btn btn-icon btn-good" title="View Transaction">
                                                 <i class="fa-solid fa-eye"></i></button>
                                             </form>
                                         </td>
@@ -159,7 +157,7 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
                 <span class="confirm--title">Confirmation</span>
                 <button class="confirm--close" onclick="checkFalse()">&times;</button>
             </div>
-            <div class="confirm--content">Are you sure you want to make changes</div>
+            <div class="confirm--content">Are you sure you want to delete it</div>
             <div class="confirm--buttons">
                 <button class="confirm--button confirm--button--ok confirm--button--fill">
                     Yes

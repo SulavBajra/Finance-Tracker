@@ -19,6 +19,7 @@
   align-items: center;
   gap: 0.5rem;
   margin: 0;
+  font-size: 1.2rem;
 }
 
 /* Alerts */
@@ -81,6 +82,49 @@
 .btn-danger:hover,
 .btn-good:hover {
   background-color: #f8d7da;
+}
+
+.sort-form {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #2c3e50; /* matches your header color */
+  background: #f8f9fa; /* matches your table header background */
+  padding: 0.3rem 0.6rem;
+  border-radius: 5px;
+  border: 1.5px solid #dee2e6; /* matches your table border color */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  user-select: none;
+  font-size: 1rem;
+}
+
+.sort-form label {
+  margin: 0;
+}
+
+.sort-form select {
+  padding: 0.3rem 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg fill="%23999" height="10" viewBox="0 0 24 24" width="10" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 10px 10px;
+  padding-right: 1.5rem;
+}
+
+.sort-form select:hover,
+.sort-form select:focus {
+  border-color: #3498db; /* your primary blue */
+  outline: none;
 }
 
 /* Table Styles */
@@ -215,7 +259,11 @@
   flex-wrap: wrap; /* allows items to wrap on smaller screens */
   gap: 1rem; /* spacing between buttons/links/forms */
   align-items: center; /* vertically center content */
-  padding-top: 10px;
+  padding-top: 5px;
+}
+
+.activity-bar .sort-form {
+  padding-bottom: 5px;
 }
 
 /* Optional: Ensure forms and buttons inside activity bar have consistent sizing */

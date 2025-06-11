@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.text.DecimalFormat" %>
+<%@ page
+import="com.financetracker.model.User" %><% User user = (User)
+request.getAttribute("user"); %>
 <%
     // Variables to hold input and result
     String principalStr = request.getParameter("principal");
@@ -41,20 +44,26 @@
     <meta charset="UTF-8" />
     <title>Fixed Deposit Calculator</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/fd.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/layout.css">
      <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
 </head>
 <body>
+    <%
+        String currentUri = request.getRequestURI();
+        request.setAttribute("currentUri", currentUri);
+    %>
+    <jsp:include page="/WEB-INF/views/layout.jsp" />
     <main class="container">
-        <span>
+        <!-- <span>
             <a href="${pageContext.request.contextPath}/dashboard"
               ><i class="fa fa-arrow-left"></i> </a
-          ></span>
+          ></span> -->
         <h1>Fixed Deposit Calculator</h1>
-        <form method="get" action="${pageContext.request.contextPath}/fixedDeposit">
-            <label for="principal">Principal Amount:</label>
+        <form method="get" action="${pageContext.request.contextPath}/fixedDeposit" class="fd-form">
+            <label for="principal">Principal Amount (Rs):</label>
             <input type="text" id="principal" name="principal" value="<%= principalStr != null ? principalStr : "" %>" required />
 
             <label for="rate">Annual Interest Rate (%):</label>
@@ -74,7 +83,7 @@
             <button type="submit" class="btn btn-primary">Calculate</button>
         </form>
 
-        <hr/>
+        <hr />
 
         <% if (error != null) { %>
             <p class="error"><%= error %></p>
@@ -82,12 +91,13 @@
             DecimalFormat df = new DecimalFormat("#,##0.00");
         %>
             <h2>Results</h2>
-            <p>Principal: Rs<%= df.format(principal) %></p>
-            <p>Interest Rate: <%= (rate * 100) %>% per annum</p>
-            <p>Tenure: <%= time %> years</p>
-            <p>Compounding Frequency: <%= frequencyStr %></p>
-            <p><strong>Maturity Amount: Rs<%= df.format(maturityAmount) %></strong></p>
+            <p>Principal: Rs <strong><%= df.format(principal) %></strong></p>
+            <p>Interest Rate: <strong><%= (rate * 100) %>%</strong> per annum</p>
+            <p>Tenure: <strong><%= time %></strong> years</p>
+            <p>Compounding Frequency: <strong><%= frequencyStr %></strong></p>
+            <p>Maturity Amount: <strong>Rs <%= df.format(maturityAmount) %></strong></p>
         <% } %>
+
     </main>
 </body>
 </html>

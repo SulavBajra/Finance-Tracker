@@ -6,7 +6,6 @@ com/financetracker/model/Transaction.class
 com/financetracker/servlets/ListTransactionsServlet.class
 com/financetracker/model/DatabaseConnection.class
 com/financetracker/servlets/DisplayDashboardServlet.class
-com/financetracker/servlets/ImportServlet.class
 com/financetracker/dao/CheckUser.class
 com/financetracker/servlets/EditTransactionServlet.class
 com/financetracker/servlets/LoginServlet.class

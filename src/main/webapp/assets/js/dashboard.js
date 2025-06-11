@@ -91,6 +91,8 @@ function renderCategoryBarGraph(data) {
       labels: categories,
       datasets: [
         {
+          barPercentage: 0.6, // smaller = thinner bars
+          categoryPercentage: 0.7,
           label: "Income by Category",
           data: totals,
           backgroundColor: "#36A2EB",
@@ -98,6 +100,8 @@ function renderCategoryBarGraph(data) {
       ],
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         y: {
           beginAtZero: true,
@@ -118,6 +122,8 @@ function renderExpenseBarGraph(data) {
       labels: categories,
       datasets: [
         {
+          barPercentage: 0.6, // smaller = thinner bars
+          categoryPercentage: 0.7,
           label: "Expense by Category",
           data: totals,
           backgroundColor: "#FF6384",
@@ -125,6 +131,8 @@ function renderExpenseBarGraph(data) {
       ],
     },
     options: {
+      responsive: true,
+      maintainAspectRatio: false,
       scales: {
         y: {
           beginAtZero: true,

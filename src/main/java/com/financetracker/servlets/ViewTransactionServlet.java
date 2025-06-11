@@ -24,26 +24,32 @@ public class ViewTransactionServlet extends CheckUser{
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException{
-        try {
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException,IOException{
+        String idParameter = request.getParameter("id");
+         if (idParameter == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Transaction ID is missing");
+            return;
+        }
+        try{
+            int id = Integer.parseInt(idParameter);
             User user = validateUser(request, response);
-            if (user == null) return;
-            
-            int transactionId = Integer.parseInt(request.getParameter("id"));
-            List<Transaction> transaction = transactionDAO.getTransactionById(transactionId, user.getUserId());
-            if (transaction == null) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Transaction not found or not owned by user");
+            if(user== null){
+                request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
                 return;
             }
-            request.setAttribute("transaction", transaction);
+
+            List<Transaction> transactions = transactionDAO.getTransactionById(id,user.getUserId());
+            request.setAttribute("transactions", transactions);
             request.getRequestDispatcher("/WEB-INF/views/view.jsp").forward(request, response);
             
-        } catch (NumberFormatException e) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid transaction ID");
-        } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+
+        }catch(NumberFormatException ex){
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid transaction ID format"); 
+        }catch(Exception e){
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred");
         }
     }
-
+   
 }
