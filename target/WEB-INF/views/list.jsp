@@ -113,7 +113,7 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
                                         <td class="text-right amount-${txn.type}">
                                             <fmt:formatNumber value="${txn.amount}" 
                                                 type="currency" 
-                                                currencySymbol="${txn.type == 'income' ? '+' : '-'}$"/>
+                                                currencySymbol="${txn.type == 'income' ? '+' : '-'}रु"/>
                                         </td>
                                         <!-- <td class="description">${txn.description}</td> -->
                                          <td>

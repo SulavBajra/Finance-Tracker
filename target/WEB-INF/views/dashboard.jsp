@@ -82,12 +82,12 @@ uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
       <section class="summary-cards">
         <div class="card income-card">
           <h3>Total Income</h3>
-          <p id="total-income">&#36;${summaryResult.rows[0].total_income}</p>
+          <p id="total-income">रु${summaryResult.rows[0].total_income}</p>
         </div>
 
         <div class="card expense-card">
           <h3>Total Expenses</h3>
-          <p id="total-expense">&#36;${summaryResult.rows[0].total_expense}</p>
+          <p id="total-expense">रु${summaryResult.rows[0].total_expense}</p>
         </div>
 
         <div class="card balance-card">
@@ -95,7 +95,7 @@ uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
             <c:when test="${not empty status and status}">
               <h3 class="balance-heading">Balance</h3>
               <p id="balance">
-                &#36;${summaryResult.rows[0].total_income != null ?
+                रु${summaryResult.rows[0].total_income != null ?
                 summaryResult.rows[0].total_income : 0 -
                 summaryResult.rows[0].total_expense != null ?
                 summaryResult.rows[0].total_expense : 0}
@@ -107,7 +107,7 @@ uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
             <c:otherwise>
               <h3>Balance</h3>
               <p id="balance">
-                &#36;${summaryResult.rows[0].total_income != null ?
+                रु${summaryResult.rows[0].total_income != null ?
                 summaryResult.rows[0].total_income : 0 -
                 summaryResult.rows[0].total_expense != null ?
                 summaryResult.rows[0].total_expense : 0}

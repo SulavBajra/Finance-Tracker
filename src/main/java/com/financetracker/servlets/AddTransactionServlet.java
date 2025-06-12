@@ -47,6 +47,7 @@ public class AddTransactionServlet extends CheckUser {
             if (amount <= 0) {
                 throw new IllegalArgumentException("Amount must be greater than zero");
             }
+            
             String type = request.getParameter("type");
             String category = request.getParameter("category");
             String description = request.getParameter("description");

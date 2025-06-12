@@ -86,7 +86,9 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; }
         </div>
 
         <div class="form-actions">
-          <button type="submit" class="btn btn-primary">Add Transaction</button>
+          <button type="submit" class="btn btn-primary" onsubmit="checkDate()">
+            Add Transaction
+          </button>
           <a
             href="${pageContext.request.contextPath}/dashboard"
             class="btn btn-secondary"
@@ -102,6 +104,7 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; }
       const today = new Date().toISOString().split("T")[0];
       document.getElementById("transactionDate").value = today;
       console.log("Default date set to today:", today);
+      document.getElementById("transactionDate").setAttribute("max", today);
     </script>
   </body>
 </html>
