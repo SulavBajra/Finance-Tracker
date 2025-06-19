@@ -1,60 +1,46 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %> <%@ taglib
-prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fmt"
-uri="http://java.sun.com/jsp/jstl/fmt" %>
-<!DOCTYPE html>
-<html lang="en">
+prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Transaction Details</title>
+    <title>View Transaction</title>
     <link
       rel="stylesheet"
       href="${pageContext.request.contextPath}/assets/css/view.css"
     />
   </head>
   <body>
-    <main class="container">
-      <header>
-        <h1>Transaction Details</h1>
-        <a
-          href="${pageContext.request.contextPath}/list"
-          class="btn btn-primary"
-          >Back to Transactions</a
-        >
-      </header>
+    <c:if test="${not empty error}">
+      <p style="color: red">${error}</p>
+    </c:if>
 
-      <section class="transaction-details">
-        <c:choose>
-          <c:when test="${not empty transactions}">
-            <c:forEach var="transaction" items="${transactions}">
-              <div class="transaction-card">
-                <p><strong>ID:</strong> ${transaction.transaction_id}</p>
-                <p>
-                  <strong>Amount:</strong>
-                  <fmt:formatNumber
-                    value="${transaction.amount}"
-                    type="currency"
-                  />
-                </p>
-                <p>
-                  <strong>Date:</strong>
-                  <!-- <fmt:formatDate
-                    value="${transaction.transaction_date}"
-                    pattern="yyyy-MM-dd"
-                  /> -->
-                </p>
-                <p><strong>Type:</strong> ${transaction.type}</p>
-                <p><strong>Category:</strong> ${transaction.category}</p>
-                <p><strong>Description:</strong> ${transaction.description}</p>
-              </div>
-              <hr />
-            </c:forEach>
-          </c:when>
-          <c:otherwise>
-            <p>No transaction details available.</p>
-          </c:otherwise>
-        </c:choose>
-      </section>
-    </main>
+    <c:if test="${not empty transaction}">
+      <h2>Transaction Details</h2>
+      <table>
+        <tr>
+          <th>Username</th>
+          <td>${user.username}</td>
+        </tr>
+        <tr>
+          <th>Amount</th>
+          <td>${transaction.amount}</td>
+        </tr>
+        <tr>
+          <th>Type</th>
+          <td>${transaction.type}</td>
+        </tr>
+        <tr>
+          <th>Category</th>
+          <td>${transaction.category}</td>
+        </tr>
+        <tr>
+          <th>Description</th>
+          <td><c:out value="${transaction.description}" default="-" /></td>
+        </tr>
+        <tr>
+          <th>Transaction Date</th>
+          <td>${transaction.transactionDate}</td>
+        </tr>
+      </table>
+    </c:if>
   </body>
 </html>

@@ -124,7 +124,7 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
                                         </form></td>
                                         <td>
                                             <form method="get" action="${pageContext.request.contextPath}/view">
-                                            <input type="hidden" name="id" value="${txn.transaction_id}">
+                                            <input type="hidden" name="transaction_id" value="${txn.transaction_id}">
                                             <button type="submit"  class="btn btn-icon btn-good" title="View Transaction">
                                                 <i class="fa-solid fa-eye"></i></button>
                                             </form>
@@ -166,6 +166,26 @@ response.sendRedirect(request.getContextPath() + "/auth/login.jsp"); return; } %
             </div>
         </div>
     </div>
+
+    <!-- <div class="confirm" style="display: none">
+        <div class="confirm--window">
+          <div class="confirm--titlebar">
+            <span class="confirm--title">Confirmation</span>
+            <button class="confirm--close" onclick="checkFalse()">
+              &times;
+            </button>
+          </div>
+          <div class="confirm--content">Are you sure you want to logout</div>
+          <div class="confirm--buttons">
+            <button
+              class="confirm--button confirm--button--ok confirm--button--fill"
+            >
+              Yes
+            </button>
+            <button class="confirm--button confirm--button--cancel">No</button>
+          </div>
+        </div>
+      </div> -->
     
     
     <script src="<%=request.getContextPath()%>/assets/js/popup.js

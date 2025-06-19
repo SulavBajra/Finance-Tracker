@@ -1,90 +1,69 @@
-/* Modal Background */
-.detail {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Slightly darker overlay */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  box-sizing: border-box;
-
-  opacity: 0;
-  animation: fadeIn 0.3s forwards; /* Smooth fade-in animation */
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --danger-color: #e74c3c;
+  --dark-color: #2c3e50;
+  --light-color: #ecf0f1;
+  --gray-color: #95a5a6;
+  --income-color: #2ecc71;
+  --expense-color: #e74c3c;
 }
 
-/* Modal Container */
-.detail-window {
-  width: 100%;
-  max-width: 500px;
-  background: #ffffff; /* Pure white background */
-  border-radius: 10px; /* Smooth rounded corners */
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--light-color);
+  margin: 0;
+  padding: 40px;
+  color: var(--dark-color);
+}
+
+h2 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 60%;
+  margin: 0 auto;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   overflow: hidden;
-  transform: scale(0.9); /* Slightly smaller initial size */
-  animation: slideUp 0.3s ease-out forwards; /* Smooth zoom-in effect */
-  font-family: "Noto Sans", sans-serif;
 }
 
-/* Title Bar */
-.detail-titlebar {
-  background: #4caf50; /* Green title bar */
-  color: #ffffff;
-  padding: 15px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 16px;
+th,
+td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--gray-color);
+}
+
+th {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+td {
+  background-color: #fff;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+p {
+  color: var(--danger-color);
+  text-align: center;
+}
+
+/* Optional: color-coding type */
+.type-income {
+  color: var(--income-color);
   font-weight: bold;
 }
 
-.detail-close {
-  background: none;
-  border: none;
-  color: #ffffff;
-  font-size: 20px;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.detail-close:hover {
-  color: #d1d1d1; /* Lighter hover effect */
-}
-
-/* Modal Content */
-.detail-content {
-  padding: 20px;
-  font-size: 14px;
-  color: #333333;
-  line-height: 1.6;
-}
-
-.detail-content p {
-  margin: 10px 0; /* Space between paragraphs */
-}
-
-.detail-content p strong {
-  color: #4caf50; /* Green for highlighted text */
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: scale(0.9) translateY(30px);
-  }
-  to {
-    transform: scale(1) translateY(0);
-  }
+.type-expense {
+  color: var(--expense-color);
+  font-weight: bold;
 }

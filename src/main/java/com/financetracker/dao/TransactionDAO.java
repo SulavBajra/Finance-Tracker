@@ -89,35 +89,45 @@ public class TransactionDAO {
         }
     }
 
-    public List<Transaction> getTransactionById(int transactionId, int userId) {
-        List<Transaction> transactions = new ArrayList<>();
-        String sql = "SELECT * FROM transactions WHERE transaction_id = ? AND user_id = ?";
-        try (Connection connection = DatabaseConnection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+  public Transaction getTransactionById(int transactionId, int userId) {
+    String sql = "SELECT * FROM transactions WHERE transaction_id = ? AND user_id = ?";
 
-            preparedStatement.setInt(1, transactionId);
-            preparedStatement.setInt(2, userId);
+    try (
+        Connection connection = DatabaseConnection.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql)
+    ) {
+        preparedStatement.setInt(1, transactionId);
+        preparedStatement.setInt(2, userId);
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    Transaction transaction = new Transaction();
-                    transaction.setTransactionId(resultSet.getInt("transaction_id"));
-                    transaction.setUserId(resultSet.getInt("user_id"));
-                    transaction.setAmount(resultSet.getDouble("amount"));
-                    transaction.setType(resultSet.getString("type"));
-                    transaction.setCategory(resultSet.getString("category"));
-                    transaction.setDescription(resultSet.getString("description"));
-                    transaction.setTransactionDate(resultSet.getString("transaction_date"));
-                    transactions.add(transaction);
-                }
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                Transaction transaction = new Transaction();
+                transaction.setTransactionId(resultSet.getInt("transaction_id"));
+                transaction.setUserId(resultSet.getInt("user_id"));
+                transaction.setAmount(resultSet.getDouble("amount"));
+                transaction.setType(resultSet.getString("type"));
+                transaction.setCategory(resultSet.getString("category"));
+                transaction.setDescription(resultSet.getString("description"));
+                
+                // Store date as string from DB (format: yyyy-MM-dd)
+                transaction.setTransactionDate(resultSet.getString("transaction_date"));
+
+                // Optional: created_at timestamp
+                transaction.setCreatedAt(resultSet.getTimestamp("created_at"));
+                
+                return transaction;
             }
-        } catch (SQLException e) {
-            System.err.println("Error fetching transaction: " + e.getMessage());
-            e.printStackTrace();
         }
 
-        return transactions;
+    } catch (SQLException e) {
+        System.err.println("Error fetching transaction: " + e.getMessage());
+        e.printStackTrace();
     }
+
+    return null;
+}
+
+
 
 
     public Map<String, Double> getUserSummary(int userId) throws SQLException {

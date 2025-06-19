@@ -1,7 +1,6 @@
 package com.financetracker.servlets;
 
 import java.io.IOException;
-import java.util.List;
 
 import com.financetracker.dao.CheckUser;
 import com.financetracker.dao.TransactionDAO;
@@ -14,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/view")
-public class ViewTransactionServlet extends CheckUser{
+public class ViewTransactionServlet extends CheckUser {
     private TransactionDAO transactionDAO;
 
     @Override
@@ -24,32 +23,37 @@ public class ViewTransactionServlet extends CheckUser{
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException,IOException{
-        String idParameter = request.getParameter("id");
-         if (idParameter == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Transaction ID is missing");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        String idParameter = request.getParameter("transaction_id");
+        int transactionId;
+
+        try {
+            transactionId = Integer.parseInt(idParameter);
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid transaction ID");
             return;
         }
-        try{
-            int id = Integer.parseInt(idParameter);
-            User user = validateUser(request, response);
-            if(user== null){
-                request.getRequestDispatcher("/auth/login.jsp").forward(request, response);
-                return;
-            }
 
-            List<Transaction> transactions = transactionDAO.getTransactionById(id,user.getUserId());
-            request.setAttribute("transactions", transactions);
-            request.getRequestDispatcher("/WEB-INF/views/view.jsp").forward(request, response);
-            
-
-        }catch(NumberFormatException ex){
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid transaction ID format"); 
-        }catch(Exception e){
-            e.printStackTrace();
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred");
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/auth/login.jsp");
+            return;
         }
+
+        try {
+            Transaction transaction = transactionDAO.getTransactionById(transactionId, user.getUserId());
+            if (transaction != null) {
+                request.setAttribute("user", user);
+                request.setAttribute("transaction", transaction);
+            } else {
+                request.setAttribute("error", "Transaction not found.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Optional: log for debugging
+            request.setAttribute("error", "Error fetching transaction: " + e.getMessage());
+        }
+
+        request.getRequestDispatcher("/WEB-INF/views/view.jsp").forward(request, response);
     }
-   
 }
